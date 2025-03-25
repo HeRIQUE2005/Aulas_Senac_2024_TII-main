@@ -76,12 +76,12 @@ model Clientes {
 }
 
 model Carrinho {
-  id            String @id @default(uuid())
-  numero_pedido Int @unique @default(autoincrement())
+  id             String  @id @default(uuid())
+  numero_pedido  Int     @unique @default(autoincrement())
   valor_unitario String?
-  quantidade String?
-  valor_total String?
-  status_pedido String @default("Pendente")
+  quantidade     String?
+  valor_total    String?
+  status_pedido  String  @default("Pendente")
 
   @@map("carrinho")
 }

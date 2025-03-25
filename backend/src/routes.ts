@@ -9,7 +9,7 @@ import { LoginUsuariosControllers } from './Controllers/Login/LoginUsuariosContr
 import { ProdutosControllers } from './Controllers/Produtos/ProdutosControllers'
 import { ClientesController } from './Controllers/Clientes/ClientesControllers'
 import { LoginClientesControllers } from './Controllers/Login/LoginClientesControllers'
-
+import { CarrinhoController } from './Controllers/Carrinho/CarrinhoControllers'
 import { estaAutenticado } from './middleware/estaAutenticado'
 const router = Router()
 const upload = multer(uploadConfig.upload('./tmp'))
@@ -38,6 +38,8 @@ router.get('/ConsultarProdutos', estaAutenticado, new ProdutosControllers().cons
 //Rotas de Clientes
 router.post('/CadastrarClientes', new ClientesController().cadastrarClientes)
 
+//Rotas de Carrinho
+router.post('/CadastrarCarrinho', new CarrinhoController().cadastrarcarrinho)
 
 
 export default router

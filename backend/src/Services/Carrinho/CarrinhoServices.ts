@@ -1,25 +1,33 @@
 import prismaClient from "../../Prisma";
-import { hash } from "bcryptjs"
 
-interface  CadCarrinho{
+interface CadCarrinho {
     valor_unitario: string
-    quantidade: string
     valor_total: string
-
+    quantidade: string
 }
 
-class CarrinhoServices{
-    async cadastrarCarrinho({valor_unitario,valor_total,quantidade}:CadCarrinho) {
-    const consultavalor_unitario = await prismaClient.carrinho.findFirst({
-        where:{
-            valor_unitario: valor_unitario
+class CarrinhoServices {
+    async cadastrarCarrinho({ valor_unitario, quantidade, valor_total }: CadCarrinho) {
+        const consultaValor_unitario = await prismaClient.carrinho.findFirst({
+            where: {
+                valor_unitario: valor_unitario
+            }
+        })
+
+        if (consultaValor_unitario) {
+            throw new Error("Cadastro de Produto Concluido")
+
         }
-    })
 
-    if (consultavalor_unitario) {
-        throw new Error("Cadastro de Produto Concluido")
-
-    }
-    const 
+        await prismaClient.carrinho.create({
+            data: {
+                valor_unitario: valor_unitario,
+                quantidade: quantidade,
+                valor_total: valor_total
+            }
+        })
+        return ({ dados: 'Cadastro de Item feito com sucesso' })
     }
 }
+
+export { CarrinhoServices }
